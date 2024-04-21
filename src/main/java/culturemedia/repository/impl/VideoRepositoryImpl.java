@@ -1,42 +1,48 @@
 package culturemedia.repository.impl;
-import culturemedia.model.Video;
-import culturemedia.repository.VideoRepository;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class VideoRepositoryImpl implements VideoRepository{
-    private List<Video> videos = new ArrayList<>();
+import culturemedia.model.Video;
+import culturemedia.repository.VideoRepository;
+
+public class VideoRepositoryImpl implements VideoRepository {
+
+    private final List<Video> videos;
+
     public VideoRepositoryImpl() {
-        videos= new ArrayList<>();
+        videos = new ArrayList<>();
     }
+
     @Override
-    public List<Video> findAll(){
+    public List<Video> findAll() {
         return videos;
     }
+
     @Override
-    public Video save(Video video){
-        this.videos.add(video);
+    public Video save(Video video) {
+        this.videos.add( video );
         return video;
     }
+
     @Override
     public List<Video> find(String title) {
-        List<Video> foundVideos  = new ArrayList<>();
+        List<Video> filteredVideos = null;
         for ( Video video : videos ) {
-            if(video.title().contains(title)){
-                if(foundVideos  == null){
-                    foundVideos  = new ArrayList<Video>();
+            if(video.title().toLowerCase().contains(title.toLowerCase()) ){
+                if(filteredVideos == null){
+                    filteredVideos = new ArrayList<Video>();
                 }
-                foundVideos .add(video);
+                filteredVideos.add(video);
             }
         }
-        return foundVideos;
+        return filteredVideos;
     }
+
     @Override
     public List<Video> find(Double fromDuration, Double toDuration) {
         List<Video> filteredVideos = new ArrayList<Video>();
         for ( Video video : videos ) {
-            if(video.duration() >= fromDuration && video.duration() <= toDuration){
+            if(video.duration()>= fromDuration && video.duration()<= toDuration){
                 filteredVideos.add(video);
             }
         }
