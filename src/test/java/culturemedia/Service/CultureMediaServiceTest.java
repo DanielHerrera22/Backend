@@ -55,4 +55,28 @@ public class CultureMediaServiceTest {
                 () -> cultureMediaService.findAll()
         );
     }
+
+    @Test
+    void when_findByTitle_returns_the_videos_successfully() throws VideoNotFoundException {
+        createVideos();
+        List<Video> videos = cultureMediaService.findByTitle("Título 3");
+        assertTrue(videos.stream().map(Video::code).toList().equals(List.of("03")));
+    }
+
+    @Test
+    void when_findByTitle_throws_the_exception_successfully() {
+        assertThrows(VideoNotFoundException.class, () -> cultureMediaService.findByTitle("non_existent_title"));
+    }
+
+    @Test
+    void when_findByDuration_returns_the_videos_successfully() throws VideoNotFoundException {
+        createVideos();
+        List<Video> videos = cultureMediaService.findByDuration(1.0, 4.5);
+        assertTrue(videos.stream().map(Video::code).toList().equals(List.of("01","03","04")));
+    }
+
+    @Test
+    void when_findByDuration_throws_the_exception_successfully() {
+        assertThrows(VideoNotFoundException.class, () -> cultureMediaService.findByDuration(0.0, 0.0));
+    }
 }
