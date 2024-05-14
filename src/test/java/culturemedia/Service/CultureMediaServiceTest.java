@@ -29,12 +29,12 @@ public class CultureMediaServiceTest {
 
     private void createVideos() {
         List<Video> videos = List.of(
-                new Video("01", "Título 1", "----", 4.5),
-                new Video("02", "Título 2", "----", 5.5),
-                new Video("03", "Título 3", "----", 4.4),
-                new Video("04", "Título 4", "----", 3.5),
-                new Video("05", "Clic 5", "----", 5.7),
-                new Video("06", "Clic 6", "----", 5.1));
+                new Video("01", "Title 1", "----", 4.5),
+                new Video("02", "Title 2", "----", 5.5),
+                new Video("03", "Title 3", "----", 4.4),
+                new Video("04", "Title 4", "----", 3.5),
+                new Video("05", "Title 5", "----", 5.7),
+                new Video("06", "Title 6", "----", 5.1));
 
 
         for ( Video video : videos ) {
@@ -59,7 +59,7 @@ public class CultureMediaServiceTest {
     @Test
     void when_findByTitle_returns_the_videos_successfully() throws VideoNotFoundException {
         createVideos();
-        List<Video> videos = cultureMediaService.findByTitle("Título 3");
+        List<Video> videos = cultureMediaService.findByTitle("Title 3");
         assertTrue(videos.stream().map(Video::code).toList().equals(List.of("03")));
     }
 
